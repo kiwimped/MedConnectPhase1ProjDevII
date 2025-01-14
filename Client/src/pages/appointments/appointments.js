@@ -27,12 +27,31 @@ export const Appointments = () => {
   const providers = ["Dr. Alice Smith", "Dr. John Doe", "Dr. Emma White"];
 
   // Handles appointment booking for patients
-  const handleBooking = () => {
+  const handleBooking = async() => {
     if (provider && date && time) {
       // If all fields are filled, display a confirmation message
-      setConfirmation(
-        `Appointment booked with ${provider} on ${date} at ${time}.`
-      );
+      try{
+        const response = await fetch('http://localhost:8000/send-appointment-email',{
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: user.email, provider, date, time }),
+       
+        })
+        const result = await response.json();
+        if (response.ok) {
+          setConfirmation(`Appointment booked with ${provider} on ${date} at ${time}. Email confirmation sent!`);
+        } else {
+          setConfirmation(`Error: ${result.error}`);
+        }
+        setConfirmation(
+          `Appointment booked with ${provider} on ${date} at ${time}.`
+        );
+      }catch(error){
+        console.error('Error:', error);
+        setConfirmation('An error occurred while booking the appointment.');
+   
+      }
+      
     } else {
       // Display an error message if any fields are missing
       setConfirmation("Please fill out all fields.");
