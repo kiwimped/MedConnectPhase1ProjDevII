@@ -1,4 +1,4 @@
-
+import "./appointments.scss";
 import React, { useState } from "react"; // Import React and the useState hook
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
@@ -73,11 +73,12 @@ export const Appointments = () => {
     return (
 
 
-      <div className="App">
+      <div className="appointment">
+        <div className="card">
         <h1>Health Care App</h1> {/* App Title */}
 
         {/* Dropdown to select user type: Doctor or Patient */}
-        <div>
+        <div className="right">
           <label htmlFor="userType">Are you a Doctor or a Patient? </label>
           <select
             id="userType"
@@ -149,6 +150,7 @@ export const Appointments = () => {
 
         {/* Confirmation message */}
         {confirmation && <p className="confirmation">{confirmation}</p>}
+      </div>
       </div>
     );
 };

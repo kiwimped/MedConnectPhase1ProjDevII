@@ -1,3 +1,4 @@
+import './register.scss'
 import axios from 'axios';
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
@@ -36,7 +37,22 @@ export default function RegisterNEW() {
         }
     }
     return (
-        <div>
+        
+        <div className='register'>
+            <div className='card'>
+            <div className='left'>
+            <h1>Hello</h1>
+                    <span>
+                        Already got an Account?
+                    </span>
+                    <button onClick={() => navigate("/login")}>Login Here</button>
+                    <span>
+                        Forgot Passord? {" "}
+                    </span>
+                    <button onClick={() => navigate("/login/ForgotPassword")}>Forgot Password</button>
+            </div>
+
+            <div className='right'>
             <form onSubmit={registerUser}>
                 <label>Name</label>
                 <input type="text" placeholder="enter name" value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })}></input>
@@ -57,17 +73,18 @@ export default function RegisterNEW() {
                     checked={data.isDoctor === false}
                     onChange={() => setData({ ...data, isDoctor: false })}
                 /> No
-                <div></div>
+                
                 <input
                     type="checkbox"
                     checked={data.termAgree}
                     onChange={() => setData({ ...data, termAgree: !data.termAgree })} // Toggle the state
                 />
                 Terms and Conditions: By filling this, you agree for us to use your personal information that might be implmented into our service.Agree?
-                <div></div>
+                
                 <button type='submit' disabled={!data.termAgree}>Submit</button>
             </form>
-
+            </div>
+            </div>
         </div>
     )
 }

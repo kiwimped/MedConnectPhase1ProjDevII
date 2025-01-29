@@ -9,7 +9,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import FeedbackFormPopup from "../../components/FeedbackFormPopup";
 import Dashboard from "./dashboard";
-
+import './home.scss';
 
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
   }
   if (user) {
     return (
-      <div
+      <div className="home"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -30,6 +30,8 @@ export default function Home() {
           height: "100vh",
         }}
       >
+        <div className="card">
+        <div className="review">
         <button onClick={openPopup} style={{backgroundColor: "blue", color: "white", padding: "10px 20px", borderRadius: "5px", cursor: "pointer"}}>POST</button>
         {showPopup && (
           <FeedbackFormPopup setShow={setShowPopup}
@@ -49,7 +51,8 @@ export default function Home() {
         <div>
           <Dashboard/>
         </div>
-
+        </div>
+        </div>
         <h1>Welcome           {!!user && (<h1>Hi {user.name}!</h1>)}</h1>
 
         <h1>Do you want to book an appointment?</h1>
@@ -70,13 +73,14 @@ export default function Home() {
         </button>
 
       </div>
+      
     )
   }
   if (!user) {
     return (
       <div>
 
-        <div
+        <div className="home"
           style={{
             display: "flex",
             flexDirection: "column",
@@ -85,7 +89,8 @@ export default function Home() {
             height: "100vh",
           }}
         >
-
+          <div className="card">
+            <div className="left">
           <h1>Do you want to book an appointment?</h1>
 
           <Button
@@ -94,7 +99,8 @@ export default function Home() {
             color="#841584"
             accessibilityLabel="Go to another page"
           />
-
+</div>
+<div className="right">
           <h1>Do you want a diagnosis without an appoinment?</h1>
 
           <Button
@@ -103,9 +109,11 @@ export default function Home() {
             color="#841584"
             accessibilityLabel="Go to another page"
           />
-        </div>
+</div>
+</div>
 
 
+      </div>
       </div>
     );
   }

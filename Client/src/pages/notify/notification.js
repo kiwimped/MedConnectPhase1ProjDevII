@@ -1,3 +1,4 @@
+import "./notification.scss";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../context/userContext";
 import { Navigate } from "react-router-dom";
@@ -39,18 +40,21 @@ export const Notification = () => {
   }, [user]);
 
   return (
-    <div>
+    <div className="notification">
+      
       <h2>Notifications</h2>
       {notification.length === 0 ? (
         <p>No new notifications</p>
       ) : (
         <ul>
           {notification.map((notif, index) => (
+             <div className="card">
             <li key={index}>
               
               {notif.message} (Read: {notif.isRead ? 'Yes' : 'No'}) 
               
             </li>
+            </div>
           ))}
         </ul>
       )}

@@ -1,0 +1,136 @@
+.register {
+    height: 100vh;
+    background-color: lightcoral;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+  
+    .card {
+      width: 100%;
+      max-width: 900px;
+      display: flex;
+      background-color: white;
+      border-radius: 10px;
+      min-height: 600px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  
+      @media (max-width: 768px) {
+        flex-direction: column;
+      }
+  
+      .left {
+        flex: 1;
+        background: linear-gradient(
+            rgba(213, 166, 235, 0.5),
+            rgba(236, 151, 151, 0.5)
+          ),
+          url("https://d1di04ifehjy6m.cloudfront.net/media/filer_public/67/ca/67cac7fa-1853-4f1d-95ed-db1ed6b38ec5/adobestock_212026013_2.png");
+        background-size: cover;
+        background-position: center;
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        color: white;
+        text-align: center;
+  
+        h1 {
+          font-size: 2.5rem;
+          line-height: 1.2;
+        }
+  
+        span {
+          font-size: 1.2rem;
+        }
+  
+        button {
+          padding: 10px 20px;
+          border: none;
+          border-radius: 5px;
+          background-color: white;
+          color: black;
+          font-weight: bold;
+          cursor: pointer;
+          transition: background-color 0.3s;
+  
+          &:hover {
+            background-color: #eee;
+          }
+        }
+      }
+  
+      .right {
+        flex: 1;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+  
+        h1 {
+          color: rgb(136, 120, 120);
+          font-size: 1.5rem;
+        }
+  
+        form {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+  
+          label {
+            font-weight: bold;
+            margin-bottom: 5px;
+          }
+  
+          input[type="text"],
+          input[type="email"],
+          input[type="password"] {
+            border: none;
+            border-bottom: 2px solid lightgrey;
+            padding: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+  
+            &:focus {
+              border-color: #938eef;
+            }
+          }
+  
+          input[type="radio"],
+          input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+          }
+  
+          button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #938eef;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+  
+            &:disabled {
+              background-color: #ccc;
+              cursor: not-allowed;
+            }
+  
+            &:hover:not(:disabled) {
+              background-color: #6d5db5;
+            }
+          }
+  
+          .terms-text {
+            font-size: 0.9rem;
+            color: #555;
+          }
+        }
+      }
+    }
+  }
+  

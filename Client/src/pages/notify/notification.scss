@@ -1,0 +1,89 @@
+.notification{
+    height: 100vh;
+    background-color: lightcoral;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h2 {
+        text-align: center;
+        font-size: 2rem; // Optional for better clarity
+        color: rgb(136, 120, 120);
+        
+    }
+        .card{
+            width: 50%;
+            display: flex;
+            background-color: white;
+            border-radius: 10px;
+            min-height: 60px;
+            
+            h1 {
+                text-align: center; // Centers text horizontally
+                margin: 20px 0; // Adds spacing from other elements
+                color: #444; // Adjust color if needed
+            }
+            .left{
+                flex:1;
+               
+                background: linear-gradient(rgba(213, 166, 235, 0.459),rgba(236, 151, 151, 0.448)), url("https://d1di04ifehjy6m.cloudfront.net/media/filer_public/67/ca/67cac7fa-1853-4f1d-95ed-db1ed6b38ec5/adobestock_212026013_2.png");
+                background-size: cover;
+                padding: 50px;
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+                color: white;
+                h1{
+                    font-size: 100px;
+                    line-height: 100px;
+                }
+                span{
+                    font-size: 25px;
+                    
+                }
+                button{
+                    
+                    padding: 10px;
+                    border: none;
+                    border-radius: 10px;
+                    background-color: white;
+                    color: black;
+                    align-items: center;
+                }
+    
+            }
+            .right{
+                
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center; // Vertically aligns content
+                    align-items: center; // Centers horizontally
+                    text-align: center; // Ensures inner text is centered
+                
+                
+                
+                
+                h1{
+                    color: rgb(136, 120, 120);
+                }
+                
+                form {
+                    width: 80%; // Limits form width
+                    margin: 0 auto; // Centers form horizontally
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px; // Adds space between elements
+                }
+                
+                input, select {
+                    padding: 10px;
+                    border-radius: 5px;
+                }
+                
+                button {
+                    align-self: center; // Centers the button
+                }
+                
+            }
+        }
+    }

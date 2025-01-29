@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { Navigate } from "react-router-dom";
-
+import "./account.scss";
 export default function Account() {
     const { user, setUser } = useContext(UserContext);
     const [name, setName] = useState(user?.name || "");
@@ -36,7 +36,9 @@ export default function Account() {
     }
     if(user){
     return (
-        <div>
+        <div className="account">
+            <div className="card">
+                <div className="right">
             <h1>ACCOUNT</h1>
             {!!user && user.name && <h2>HI {user.name}!</h2>}
             <form onSubmit={handleSubmit}>
@@ -46,7 +48,12 @@ export default function Account() {
                         type="text"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
+                        placeholder={name}
                     />
+                </div>
+                <div>
+                    <label>Email:</label>
+                    {!!user && user.email && <h2> {user.email}</h2>}
                 </div>
                 <div>
                     <label>Password:</label>
@@ -59,6 +66,8 @@ export default function Account() {
                 <button type="submit">Update</button>
             </form>
             {error && <p style={{ color: "red" }}>{error}</p>}
+            </div>
+        </div>
         </div>
     );
 }

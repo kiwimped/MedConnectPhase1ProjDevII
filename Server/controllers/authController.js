@@ -80,7 +80,7 @@ const loginUser = async (req, res) => {
             const token = jwt.sign(
                 { email: user.email, id: user._id, name: user.name, isDoctor: user.isDoctor },
                 process.env.JWT_SECRET,
-                { expiresIn: '1h' }  // Optionally set an expiry for the token
+                { expiresIn: '2h' }  // Optionally set an expiry for the token
             );
 
             // Send the cookie
@@ -166,7 +166,6 @@ const logoutUser = (req, res) => {
     });
     return res.json({ message: 'Logged out successfully' });
 };
-
 const forgotpassword = async (req, res) => {
     try {
         const { email } = req.body;
@@ -188,20 +187,21 @@ const forgotpassword = async (req, res) => {
                 pass: process.env.EMAIL_PASS,
             },
             tls: {
-                rejectUnauthorized: false, // Optional, can help in case of certificate issues
+                rejectUnauthorized: false,
             },
         });
 
+        const resetLink = `http://localhost:3000/reset-password?token=${token}`;  // Include token
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to: email,
             subject: 'Reset Password',
-            text: `Click the link to reset your password: http://localhost:3000/reset-password/`
+            text: `Click the link to reset your password: ${resetLink}`
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
-                console.error('Error sending email:', error); // Log email error
+                console.error('Error sending email:', error);
                 return res.status(500).json({ error: 'Failed to send email' });
             } else {
                 console.log('Email sent:', info.response);
@@ -209,28 +209,44 @@ const forgotpassword = async (req, res) => {
             }
         });
     } catch (error) {
-        console.error('Error in forgotpassword function:', error); // Log any other errors
+        console.error('Error in forgotpassword function:', error);
         return res.status(500).json({ error: 'Server error' });
     }
 };
-const resetpassword = (req, res) => {
-    const {id, token} = req.params
-    const {password} = req.body
 
-    jwt.verify(token, "jwt_secret_key", (err, decoded) => {
-        if(err) {
-            return res.json({Status: "Error with token"})
-        } else {
-            bcrypt.hash(password, 10)
-            .then(hash => {
-                User.findByIdAndUpdate({_id: id}, {password: hash})
-                .then(u => res.send({Status: "Success"}))
-                .catch(err => res.send({Status: err}))
-            })
-            .catch(err => res.send({Status: err}))
+const bcrypt = require('bcrypt'); // Ensure bcrypt is required
+
+const resetpassword = async (req, res) => {
+    try {
+        const { token } = req.params; // Get token from URL
+        const { password } = req.body;
+
+        if (!password || password.length < 6) {
+            return res.status(400).json({ error: 'Password must be at least 6 characters' });
         }
-    })
-}
+
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+            if (err) {
+                return res.status(400).json({ error: 'Invalid or expired token' });
+            }
+
+            const user = await User.findById(decoded.id);
+            if (!user) {
+                return res.status(404).json({ error: 'User not found' });
+            }
+
+            const hashedPassword = await bcrypt.hash(password, 10);
+            user.password = hashedPassword;
+            await user.save();
+
+            return res.json({ message: 'Password reset successful' });
+        });
+
+    } catch (error) {
+        console.error('Error in resetpassword:', error);
+        return res.status(500).json({ error: 'Server error' });
+    }
+};
 module.exports = {
     test,
     registerUser,
