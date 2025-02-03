@@ -17,6 +17,8 @@ import Logout from "./pages/login/logout";
 import ProtectedRoutes from './components/ProtectedRoutes'
 import { Error } from "./pages/errors/error";
 import ResetPassword from "./pages/login/resetpassword";
+import { Search } from "./pages/search/search";
+import { DoctorProfile } from "./pages/doctor/DoctorProfile";
 import './styles.css';
 
 axios.defaults.baseURL = 'http://localhost:8000';
@@ -33,6 +35,9 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/doctor/:id" element={<DoctorProfile />} />  {/* Doctor profile page */}
+
+          <Route path="/search" element={<Search />}/>
           <Route path="/login" element={<LoginNEW />} />
           <Route path="/registerNEW" element={<RegisterNEW />} />
           <Route path="/account" element={<Account />} />

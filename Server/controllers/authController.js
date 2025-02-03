@@ -12,7 +12,7 @@ const test = (req, res) => {
 //register endpoint
 const registerUser = async (req, res) => {
     try {
-        const { name, email, password, isDoctor,termAgree } = req.body;
+        const { name, email, password, isDoctor,termAgree,specialty,location,experience } = req.body;
         // check if name entered
         if (typeof isDoctor !== 'boolean') {
             return res.status(400).json({
@@ -47,7 +47,10 @@ const registerUser = async (req, res) => {
             email,
             password: hashedPassword,
             isDoctor,
-            termAgree
+            termAgree,
+            specialty,
+            location,
+            experience
         })
         // Add a notification for the new user
         const notification = await NotificationModel.create({
@@ -122,7 +125,7 @@ const getProfile = (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const { name, password } = req.body;
+        const { name, password,specialty,location,experience } = req.body;
         const { token } = req.cookies;
 
         if (token) {
@@ -143,6 +146,18 @@ const updateUser = async (req, res) => {
                 if (password) {
                     // Hash new password
                     user.password = await hashPassword(password);
+                }
+
+                if(specialty) {
+                    user.specialty = specialty;
+                }
+
+                if(location) {
+                    user.location = location;
+                }
+
+                if(experience){
+                    user.experience = experience;
                 }
 
                 await user.save(); // Save the updated user

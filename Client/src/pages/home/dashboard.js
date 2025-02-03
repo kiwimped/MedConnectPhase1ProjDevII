@@ -15,6 +15,11 @@ export default function Dashboard() {
         <div>
             <h1>Doctor Dashboard</h1>
             <DoctorReview doctorName={doctorName} />
+{/* Button to open the feedback form */}
+<button onClick={openPopup}>Leave Feedback</button>
+
+{/* Conditionally render the popup */}
+{showPopup && <FeedbackFormPopup setShow={setShowPopup} doctorName={doctorName} />}
 
         </div>
 

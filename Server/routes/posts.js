@@ -4,19 +4,19 @@ const router = express.Router();
 
 // POST route to create a new review
 router.post('/postreview', async (req, res) => {
-    try {
-      const { title, context, toName, rate } = req.body;
-      const fromName = req.body.name || "Anonymous";  // Assume user info is attached to req.user
-      const date = new Date();         // Set the current date and time
-  
-      const newPost = new PostReview({ title, context, fromName, toName, date, rate });
-  
-      await newPost.save();
-      res.status(201).send('Posted Review stored successfully',newPost);
-    } catch (error) {
-      res.status(500).json({ message: 'Error saving Review', error });
-    }
-  });
+  try {
+    const { title, context, toName, rate } = req.body;
+    const fromName = req.body.name || "Anonymous";  // Assume user info is attached to req.user
+    const date = new Date();         // Set the current date and time
+
+    const newPost = new PostReview({ title, context, fromName, toName, date, rate });
+
+    await newPost.save();
+    res.status(201).json({ message: 'Posted Review stored successfully', newPost });
+  } catch (error) {
+    res.status(500).json({ message: 'Error saving Review', error });
+  }
+});
   
   // GET route to fetch all reviews
   router.get('/postreview', async (req, res) => {

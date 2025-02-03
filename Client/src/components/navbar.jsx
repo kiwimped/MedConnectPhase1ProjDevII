@@ -5,6 +5,7 @@ import { Bell } from "phosphor-react";
 import { House } from "phosphor-react";
 import { FirstAidKit } from "phosphor-react";
 import { Robot } from "phosphor-react";
+import {MagnifyingGlass} from "phosphor-react";
 import "./navbar.css";
 import { useContext } from "react";
 import { UserContext } from "../context/userContext";
@@ -35,7 +36,9 @@ export const Navbar = () => {
         <Link to="/AI">
           <Robot size={32} />
         </Link>
-
+        <Link to="/search">
+        <MagnifyingGlass size={32} />
+        </Link>
         <Link to="/logout">Logout</Link>
         
       </div>
@@ -62,7 +65,9 @@ if(!user){
         <Link to="/AI">
           <Robot size={32} />
         </Link>
-
+        <Link to="/search">
+        <MagnifyingGlass size={32} />
+        </Link>
         <Link to="/login">Login</Link>
         
       </div>

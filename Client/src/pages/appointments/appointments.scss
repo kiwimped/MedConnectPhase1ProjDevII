@@ -1,88 +1,111 @@
-.appointment{
+.appointment {
     height: 100vh;
     background-color: lightcoral;
     display: flex;
     align-items: center;
     justify-content: center;
+
     h1 {
         text-align: center;
-        font-size: 2rem; // Optional for better clarity
-        color: rgb(136, 120, 120);
+        font-size: 2rem;
+        color: rgb(209, 244, 185);
     }
-        .card{
-            width: 50%;
-            display: flex;
-            background-color: white;
-            border-radius: 10px;
-            min-height: 60px;
-            
-            h1 {
-                text-align: center; // Centers text horizontally
-                margin: 20px 0; // Adds spacing from other elements
-                color: #444; // Adjust color if needed
-            }
-            .left{
-                flex:1;
-               
-                background: linear-gradient(rgba(213, 166, 235, 0.459),rgba(236, 151, 151, 0.448)), url("https://d1di04ifehjy6m.cloudfront.net/media/filer_public/67/ca/67cac7fa-1853-4f1d-95ed-db1ed6b38ec5/adobestock_212026013_2.png");
-                background-size: cover;
-                padding: 50px;
-                display: flex;
-                flex-direction: column;
-                gap: 30px;
-                color: white;
-                h1{
-                    font-size: 100px;
-                    line-height: 100px;
-                }
-                span{
-                    font-size: 25px;
-                    
-                }
-                button{
-                    
-                    padding: 10px;
-                    border: none;
-                    border-radius: 10px;
-                    background-color: white;
-                    color: black;
-                    align-items: center;
-                }
-    
-            }
-            .right{
-                
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center; // Vertically aligns content
-                    align-items: center; // Centers horizontally
-                    text-align: center; // Ensures inner text is centered
-                
-                
-                
-                
-                h1{
-                    color: rgb(136, 120, 120);
-                }
-                
-                form {
-                    width: 80%; // Limits form width
-                    margin: 0 auto; // Centers form horizontally
-                    display: flex;
-                    flex-direction: column;
-                    gap: 20px; // Adds space between elements
-                }
-                
-                input, select {
-                    padding: 10px;
-                    border-radius: 5px;
-                }
-                
-                button {
-                    align-self: center; // Centers the button
-                }
-                
-            }
-        }
-    }
+}
+
+.card {
+    width: 50%;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.left {
+    flex: 1;
+    background: linear-gradient(rgba(213, 166, 235, 0.6), rgba(236, 151, 151, 0.6)), 
+                url("https://d1di04ifehjy6m.cloudfront.net/media/filer_public/67/ca/67cac7fa-1853-4f1d-95ed-db1ed6b38ec5/adobestock_212026013_2.png");
+    background-size: cover;
+    background-position: center;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: white;
+    text-align: center;
+}
+
+.left h1 {
+    font-size: 50px;
+    line-height: 60px;
+    margin-bottom: 10px;
+}
+
+.left span {
+    font-size: 20px;
+}
+
+.left button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.left button:hover {
+    background-color: lightgray;
+}
+
+.right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.right h1 {
+    color: rgb(136, 120, 120);
+    margin-bottom: 15px;
+}
+
+form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #841584;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #6a126a;
+}
+
+.confirmation {
+    margin-top: 15px;
+    font-weight: bold;
+    color: green;
+}

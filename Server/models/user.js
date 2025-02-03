@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const {Schema} = mongoose
 const userSchema = new Schema({
@@ -9,7 +9,10 @@ const userSchema = new Schema({
     },
     password: String,
     isDoctor: Boolean,
-    termAgree: Boolean
+    termAgree: Boolean,
+    specialty: String,
+    location: String,
+    experience: Number,
     
 })
 

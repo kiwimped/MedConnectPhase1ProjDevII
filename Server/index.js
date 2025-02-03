@@ -8,6 +8,8 @@ const appointment = require('./routes/Appointments')
 const postreview = require('./routes/posts')
 const notificationRoutes = require('./routes/notify'); // Path to your router file
 const patientBooking = require('./routes/bookAppointmentRoute')
+const search = require('./routes/search');
+const doctor = require('./routes/doctor');
 //database connection
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>console.log('database Connected'))
@@ -23,5 +25,7 @@ app.use('/', appointment);
 app.use('/',postreview)
 app.use('/', notificationRoutes); // Ensure this is correct
 app.use('/', patientBooking); // Patient booking
+app.use('/', search);
+app.use('/',doctor);
 const port = 8000;
 app.listen(port, () => console.log(`Server is running on port ${port}`))

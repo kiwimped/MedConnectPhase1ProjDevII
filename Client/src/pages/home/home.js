@@ -32,7 +32,9 @@ export default function Home() {
       >
         <div className="card">
         <div className="review">
-        <button onClick={openPopup} style={{backgroundColor: "blue", color: "white", padding: "10px 20px", borderRadius: "5px", cursor: "pointer"}}>POST</button>
+  
+          <Dashboard/>
+        
         {showPopup && (
           <FeedbackFormPopup setShow={setShowPopup}
             style={{
@@ -48,9 +50,7 @@ export default function Home() {
             }}
           />
         )}
-        <div>
-          <Dashboard/>
-        </div>
+
         </div>
         </div>
         <h1>Welcome           {!!user && (<h1>Hi {user.name}!</h1>)}</h1>

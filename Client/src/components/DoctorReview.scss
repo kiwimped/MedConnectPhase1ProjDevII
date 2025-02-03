@@ -1,0 +1,76 @@
+.doctor-review-section {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  .review-item {
+    background-color: #fff;
+    padding: 15px;
+    margin: 10px 0; /* Adds spacing between reviews */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Ensures it takes up full width */
+    max-width: 500px; /* Prevents it from getting too large */
+  }
+  
+  button {
+    margin-top: 20px; /* Adds space between button and last review */
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #841584;
+    color: white;
+    cursor: pointer;
+    border: none;
+  }
+  .reviews-list {
+    margin-top: 20px;
+    max-height: 300px; /* Adjust this height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+    padding: 10px;
+    border: 1px solid #ddd; /* Optional: for a subtle border */
+  }
+  
+  .review-card {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 12px;
+  }
+  
+  .review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+    background-color: #841584;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 18px;
+  }
+  
+  .review-meta {
+    font-size: 12px;
+    color: gray;
+  }
+  
+  .review-text {
+    margin: 10px 0;
+  }
+  
+  .review-rating {
+    display: flex;
+    gap: 5px;
+  }
+  

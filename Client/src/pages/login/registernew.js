@@ -10,14 +10,16 @@ export default function RegisterNEW() {
         email: '',
         password: '',
         isDoctor: false,
-        termAgree: false
+        termAgree: false, 
+        specialty: '',
+        location: ''
     })
     const registerUser = async (e) => {
         e.preventDefault();
-        const { name, email, password, isDoctor, termAgree } = data
+        const { name, email, password, isDoctor, termAgree,specialty,location } = data
         try {
             const { data } = await axios.post('/registerNEW', {
-                name, email, password, isDoctor, termAgree
+                name, email, password, isDoctor, termAgree,specialty,location
             })
             if (data.error) {
                 toast.error(data.error)
@@ -74,6 +76,28 @@ export default function RegisterNEW() {
                     onChange={() => setData({ ...data, isDoctor: false })}
                 /> No
                 
+                {/* Show these fields only if the user is a doctor */}
+                {data.isDoctor && (
+                    <div>
+                        <label>Specialty</label>
+                        <input
+                            type="text"
+                            placeholder="Enter your specialty"
+                            value={data.specialty}
+                            onChange={(e) => setData({ ...data, specialty: e.target.value })}
+                        />
+
+                        <label>Clinic Location</label>
+                        <input
+                            type="text"
+                            placeholder="Enter clinic location"
+                            value={data.location}
+                            onChange={(e) => setData({ ...data, location: e.target.value })}
+                        />
+                    </div>
+                )}
+
+
                 <input
                     type="checkbox"
                     checked={data.termAgree}

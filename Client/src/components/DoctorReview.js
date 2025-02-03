@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Button from "./Button";
+import { FaStar, FaRegStar } from "react-icons/fa"; // For star ratings
+import { format } from "date-fns"; // For formatting dates
+import "./DoctorReview.scss";
 
 const DoctorReview = ({ doctorName }) => {
   const [reviews, setReviews] = useState([]); 
@@ -11,7 +13,7 @@ const DoctorReview = ({ doctorName }) => {
     rate: 0,
   });
 
-  // Fetchs existing reviews for the doctor when the component loads
+  // Fetch existing reviews for the doctor
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -24,23 +26,6 @@ const DoctorReview = ({ doctorName }) => {
     fetchReviews();
   }, [doctorName]);
 
-  // Handles review submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      // Posts the review to the backend
-      const { data: newReview } = await axios.post("/postreview", data);
-
-      // Immediately updates the UI with the new review
-      setReviews((prevReviews) => [...prevReviews, newReview]);
-
-      // Resets the form
-      setData({ ...data, title: "", context: "", rate: 0 });
-    } catch (error) {
-      console.error("Error posting review:", error);
-    }
-  };
-
   return (
     <div className="doctor-review-section">
       <h2>Reviews for {doctorName}</h2>
@@ -48,19 +33,28 @@ const DoctorReview = ({ doctorName }) => {
       <div className="reviews-list">
         {reviews.length > 0 ? (
           reviews.map((review) => (
-            <div key={review._id} className="review-item">
-              <strong>{review.title}</strong>
-              <p>{review.context}</p>
-              <strong>Rating:</strong> {review.rate} / 5
-            </div>
+            <ReviewCard key={review._id} review={review} />
           ))
         ) : (
-          <p>No reviews yet. Be the first to leave a review!</p>
+          <p className="no-reviews">No reviews yet. Be the first to leave a review!</p>
         )}
       </div>
+    </div>
+  );
+};
 
 
+const ReviewCard = ({ review }) => {
+  const formattedDate = review.date
+    ? format(new Date(review.date), "PPP")
+    : "Invalid Date";
 
+  return (
+    <div className="review-item">
+      <strong>{review.title}</strong>
+      <p>{review.context}</p>
+      <strong>Rating:</strong> {review.rate} / 5
+      <p>Date: {formattedDate}</p>
     </div>
   );
 };

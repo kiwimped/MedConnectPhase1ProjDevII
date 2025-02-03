@@ -6,12 +6,18 @@ export default function Account() {
     const { user, setUser } = useContext(UserContext);
     const [name, setName] = useState(user?.name || "");
     const [password, setPassword] = useState("");
+    const [specialty, setSpecialty] = useState("");
+    const [location,setLocation] = useState("");
+    const [experience,setExperience] = useState(0);
     const [error, setError] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const data = { name, password };
+        const data = { name, password, specialty: specialty || user.specialty,
+            location: location || user.location,
+            experience: experience || user.experience
+         };
 
         // Send the updated data to the backend
         const response = await fetch('http://localhost:8000/update', {
@@ -31,44 +37,79 @@ export default function Account() {
             alert('User updated successfully');
         }
     };
-    if(!user){
+    if (!user) {
         return <Navigate to="/login" />;
     }
-    if(user){
-    return (
-        <div className="account">
-            <div className="card">
-                <div className="right">
-            <h1>ACCOUNT</h1>
-            {!!user && user.name && <h2>HI {user.name}!</h2>}
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Name:</label>
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        placeholder={name}
-                    />
+
+    
+    if (user) {
+        return (
+            <div className="account">
+                <div className="card">
+                    <div className="right">
+                        <h1>ACCOUNT</h1>
+                        {!!user && user.name && <h2>HI {user.name}!</h2>}
+                        <form onSubmit={handleSubmit}>
+                            <div>
+                                <label>Name:</label>
+                                <input
+                                    type="text"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    placeholder={name}
+                                />
+                            </div>
+                            <div>
+                                <label>Email:</label>
+                                {!!user && user.email && <h2> {user.email}</h2>}
+                            </div>
+                            <div>
+                                <label>Password:</label>
+                                <input
+                                    type="password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    placeholder={user.password || "Enter New Password"}
+                                />
+                            </div>
+                            {user && user.isDoctor == true && 
+                            <div>
+                            <div>
+                                <label>Specialty:</label>
+                                <input
+                                    type="text"
+                                    value={specialty}
+                                    placeholder={user.specialty || "Enter specialty"}
+                                    onChange={(e) => setSpecialty(e.target.value)}
+                                />
+                            </div>
+                            <div>
+                                <label>Experience:</label>
+                                <input 
+                                type="number"
+                                value={experience}
+                                placeholder={user.experience || "Enter Years of Experience"}
+                                onChange={(e)=>setExperience(e.target.value)}
+                                min="0"
+                                />
+                            </div>
+                            <div>
+                                <label>Location:</label>
+                                <input 
+                                type="text"
+                                value={location}
+                                placeholder={user.location || "Enter Address of Office"}
+                                onChange={(e)=>setLocation(e.target.value)}
+                                />
+                            </div>
+                            </div>
+                            }
+                            <button type="submit">Update</button>
+                        </form>
+                        {error && <p style={{ color: "red" }}>{error}</p>}
+                    </div>
                 </div>
-                <div>
-                    <label>Email:</label>
-                    {!!user && user.email && <h2> {user.email}</h2>}
-                </div>
-                <div>
-                    <label>Password:</label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    />
-                </div>
-                <button type="submit">Update</button>
-            </form>
-            {error && <p style={{ color: "red" }}>{error}</p>}
             </div>
-        </div>
-        </div>
-    );
-}
+        );
+    }
 }
