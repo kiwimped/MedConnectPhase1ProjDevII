@@ -4,6 +4,7 @@ import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
 import { useNavigate } from 'react-router-dom'
 import { Navigate } from "react-router-dom";
+
 import { StyleSheet, Button, View, Text, Alert } from "react-native";
 const styles = StyleSheet.create({
   container: {
@@ -68,7 +69,12 @@ useEffect(() => {
       // Display an error message if any fields are missing
       setConfirmation("Please fill out all fields.");
     }
-  };if (!user) {
+  };
+  
+  /*if (!user){
+    return navigate('/login')
+  }*/
+  if (!user) {
     return (
       <div className="appointment">
         <div className="card">

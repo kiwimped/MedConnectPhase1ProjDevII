@@ -19,6 +19,8 @@ import { Error } from "./pages/errors/error";
 import ResetPassword from "./pages/login/resetpassword";
 import { Search } from "./pages/search/search";
 import { DoctorProfile } from "./pages/doctor/DoctorProfile";
+import InfoPage from "./pages/InfoPage/InfoPage";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 import './styles.css';
 
 axios.defaults.baseURL = 'http://localhost:8000';
@@ -32,8 +34,9 @@ export default function App() {
       <Toaster position="bottom-right" toastOptions={{duration: 2000}}/>
 
       <BrowserRouter>
-        <Navbar />
+      <Navbar />
         <Routes>
+          <Route path="/Info" element={<InfoPage />} />
           <Route path="/" element={<Home />} />
           <Route path="/doctor/:id" element={<DoctorProfile />} />  {/* Doctor profile page */}
 
@@ -48,6 +51,9 @@ export default function App() {
           <Route path="/login/ForgotPassword" element={<ForgotPassword/>}/>
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route element={<ProtectedRoutes/>}>
+           {/* ✅ New Admin Route */}
+           <Route path="/admin" element={<AdminDashboard />} />
+
           <Route path="/doctor" element={<DoctorDash />} />
           </Route>
           <Route path="/error"element={<Error/>}/>

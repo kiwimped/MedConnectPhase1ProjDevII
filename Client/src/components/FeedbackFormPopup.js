@@ -5,14 +5,27 @@ import { UserContext } from "../context/userContext";
 
 export default function FeedbackFormPopup({ setShow,doctorName }) {
     const User = useContext(UserContext);
+    const [doctors,setDoctors] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [data, setData] = useState({
         title: "",
         context: "",
+        fromName: User.name || "",
         toName: doctorName,
         rate: 0,
     });
 
+    useEffect(()=>{
+        const fetchDoctors = async () =>{
+            try{
+                const {data} = await axios.get("/doctors");
+                setDoctors(data);
+            }catch(error){
+                console.error("Error Fetching doctors",error);
+            }
+        };
+        fetchDoctors();
+    },[]);
     // Fetch existing reviews for the recipient (toName)
     useEffect(() => {
         if (data.toName) {
@@ -59,71 +72,82 @@ export default function FeedbackFormPopup({ setShow,doctorName }) {
 
     return (
         <div className="fixed inset-0 bg-white md:bg-black md:bg-opacity-80 flex md:item-center">
-            <div className="w-full">
-                <div className="bg-white md:max-w-2xl md:mx-auto md:rounded overflow-hidden">
-                    <button onClick={() => setShow(false)} className="text-right">CLOSE</button>
-                    <h2 className="py-4 text-center border-b">Make suggestion</h2>
+        <div className="w-full">
+            <div className="bg-white md:max-w-2xl md:mx-auto md:rounded overflow-hidden">
+                <button onClick={() => setShow(false)} className="text-right">CLOSE</button>
+                <h2 className="py-4 text-center border-b">Leave a Review</h2>
 
-                    <form className="p-8" onSubmit={handleSubmit}>
-                        <input
-                            className="w-full border p-2 rounded"
-                            type="text"
-                            placeholder="A short, descriptive title"
-                            name="title"
-                            value={data.title}
-                            onChange={(e) => setData({ ...data, title: e.target.value })}
-                            required
-                        />
+                <form className="p-8" onSubmit={handleSubmit}>
+                    <input
+                        className="w-full border p-2 rounded"
+                        type="text"
+                        placeholder="A short, descriptive title"
+                        name="title"
+                        value={data.title}
+                        onChange={(e) => setData({ ...data, title: e.target.value })}
+                        required
+                    />
 
-                        <label className="block mt-4 mb-2">Details</label>
-                        <textarea
-                            className="w-full border p-2 rounded"
-                            placeholder="Please include details"
-                            name="context"
-                            value={data.context}
-                            onChange={(e) => setData({ ...data, context: e.target.value })}
-                            required
-                        ></textarea>
+                    <label className="block mt-4 mb-2">Details</label>
+                    <textarea
+                        className="w-full border p-2 rounded"
+                        placeholder="Include details"
+                        name="context"
+                        value={data.context}
+                        onChange={(e) => setData({ ...data, context: e.target.value })}
+                        required
+                    ></textarea>
 
+                    <label className="block mt-4 mb-2">Doctor</label>
+                    <select
+                        className="w-full border p-2 rounded"
+                        value={data.toName}
+                        onChange={(e) => setData({ ...data, toName: e.target.value })}
+                        required
+                    >
+                        <option value="">Select a doctor</option>
+                        {doctors.map((doctor) => (
+                            <option key={doctor._id} value={doctor.name}>
+                                {doctor.name} - {doctor.specialty}
+                            </option>
+                        ))}
+                    </select>
 
+                    <label className="block mt-4 mb-2">Rating</label>
+                    <input
+                        className="w-full border p-2 rounded"
+                        type="number"
+                        placeholder="Rate out of 5"
+                        name="rate"
+                        value={data.rate}
+                        onChange={(e) => setData({ ...data, rate: e.target.value })}
+                        min="0"
+                        max="5"
+                        required
+                    />
 
-                        <label className="block mt-4 mb-2">Rating</label>
-                        <input
-                            className="w-full border p-2 rounded"
-                            type="number"
-                            placeholder="Rate out of 5"
-                            name="rate"
-                            value={data.rate}
-                            onChange={(e) => setData({ ...data, rate: e.target.value })}
-                            min="0"
-                            max="5"
-                            required
-                        />
-
-                        <div className="flex gap-2 mt-4">
-                            <Button primary type="submit">
-                                Submit Feedback
-                            </Button>
-                            <Button onClick={() => setShow(false)}>Cancel</Button>
-                        </div>
-                    </form>
-
-                    <div className="reviews-list p-8">
-                        <h3 className="text-xl">Reviews for {data.toName}</h3>
-                        {reviews.length > 0 ? (
-                            reviews.map((review) => (
-                                <div key={review._id} className="review-item mt-4">
-                                    <strong>{review.title}</strong>
-                                    <p>{review.context}</p>
-                                    <strong>Rating:</strong> {review.rate} / 5
-                                </div>
-                            ))
-                        ) : (
-                            <p>No reviews yet. Be the first to leave a review!</p>
-                        )}
+                    <div className="flex gap-2 mt-4">
+                        <Button primary type="submit">Submit Feedback</Button>
+                        <Button onClick={() => setShow(false)}>Cancel</Button>
                     </div>
+                </form>
+
+                <div className="reviews-list p-8">
+                    <h3 className="text-xl">Reviews for {data.toName}</h3>
+                    {reviews.length > 0 ? (
+                        reviews.map((review) => (
+                            <div key={review._id} className="review-item mt-4">
+                                <strong>{review.title}</strong>
+                                <p>{review.context}</p>
+                                <strong>Rating:</strong> {review.rate} / 5
+                            </div>
+                        ))
+                    ) : (
+                        <p>No reviews yet. Be the first to leave a review!</p>
+                    )}
                 </div>
             </div>
         </div>
+    </div>
     );
 }

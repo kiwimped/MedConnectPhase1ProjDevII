@@ -69,7 +69,7 @@ export default function Account() {
                                     type="password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    placeholder={user.password || "Enter New Password"}
+                                    placeholder="Enter New Password"
                                 />
                             </div>
                             {user && user.isDoctor == true && 
@@ -85,6 +85,8 @@ export default function Account() {
                             </div>
                             <div>
                                 <label>Experience:</label>
+                                Years of Experience: {user.experience}
+                                
                                 <input 
                                 type="number"
                                 value={experience}

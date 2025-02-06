@@ -22,13 +22,7 @@ export default function Home() {
   if (user) {
     return (
       <div className="home"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
+      
       >
         <div className="card">
         <div className="review">
@@ -71,6 +65,14 @@ export default function Home() {
         >
           Click Here for AI diagnosis
         </button>
+        
+        <h1>Do you want more information click here</h1>
+        <button
+          onClick={() => navigation.navigate("/Info")} // Navigate to Info page
+          style={{ backgroundColor: "#841584", color: "white", padding: "10px 20px", borderRadius: "5px", cursor: "pointer" }}
+        >
+          Click Here for more information
+        </button>
 
       </div>
       
@@ -109,6 +111,14 @@ export default function Home() {
             color="#841584"
             accessibilityLabel="Go to another page"
           />
+<h1>Do you want more information click here</h1>
+        <button
+          onClick={() => navigation.navigate("/Info")} // Navigate to Info page
+          style={{ backgroundColor: "#841584", color: "white", padding: "10px 20px", borderRadius: "5px", cursor: "pointer" }}
+        >
+          Click Here for more information
+        </button>
+
 </div>
 </div>
 

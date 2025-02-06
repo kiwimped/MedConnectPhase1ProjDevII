@@ -10,6 +10,8 @@ const notificationRoutes = require('./routes/notify'); // Path to your router fi
 const patientBooking = require('./routes/bookAppointmentRoute')
 const search = require('./routes/search');
 const doctor = require('./routes/doctor');
+const adminRoutes = require('./routes/adminRoutes');
+
 //database connection
 mongoose.connect(process.env.MONGO_URL)
 .then(()=>console.log('database Connected'))
@@ -22,6 +24,7 @@ app.use(express.urlencoded({extended: false}))
 
 app.use('/',require('./routes/authRoutes'))
 app.use('/', appointment);
+app.use('/api/admin', adminRoutes); 
 app.use('/',postreview)
 app.use('/', notificationRoutes); // Ensure this is correct
 app.use('/', patientBooking); // Patient booking

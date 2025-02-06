@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { UserContext } from "../../context/userContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Logout() {
     const { user, setUser } = useContext(UserContext);
-
+    const navigate = useNavigate();
     const handleLogout = async () => {
         const response = await fetch('http://localhost:8000/logout', {
             method: 'POST',
@@ -12,6 +13,7 @@ export default function Logout() {
 
         if (response.ok) {
             setUser(null); // Clear the user context
+            navigate('/');
             alert('Logged out successfully');
         }
     };

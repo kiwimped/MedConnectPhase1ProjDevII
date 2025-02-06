@@ -1,10 +1,11 @@
 .home {
-    height: 100vh;
-    background-color: lightcoral;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+  min-height: 100vh; /* Allows the page to expand dynamically */
+  background-color: lightcoral;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  flex-direction: column; /* Ensures content stacks properly */
     .review {
         flex: 1;
         padding: 40px;
